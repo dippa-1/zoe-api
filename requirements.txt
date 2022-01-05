@@ -1,0 +1,5 @@
+renault-api[cli]
+dateparser
+fastapi
+uvicorn[standard]
+tabulate
