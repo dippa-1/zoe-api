@@ -1,15 +1,27 @@
 #!/usr/bin/env python3
 from typing import Optional
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, BackgroundTasks
+from time import sleep
 
 app = FastAPI()
 
+def execute_delayed(command: str, delay: int):
+    if delay > 0:
+        sleep(delay)
+        stream = os.popen(command)
+        output = stream.read()
+        print(output)
+
 
 @app.get("/{command}")
-def read_root(command: str):
+def read_root(command: str, background_tasks: BackgroundTasks, delay: Optional[str] = None):
     command.replace("%20", " ")
-    stream = os.popen(f'renault-api {command}')
-    output = stream.read()
-    return output
-
+    cmd = f'renault-api {command}'
+    if delay != None:
+        background_tasks.add_task(execute_delayed, cmd, int(delay))
+        return cmd, delay + 's'
+    else:
+        stream = os.popen(cmd)
+        output = stream.read()
+        return output
