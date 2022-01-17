@@ -1,4 +1,8 @@
-# zoe-api
+# Renault Server API
+## What is this for?
+This will host a webserver to be able to send commands to newer Renault cars and use the same commands that the MyRenault app uses.
+For example, with a Renault Zoe you can start HVAC, change charging schedules etc.
+
 ## Requirements
 - Python 3
 - Renault Account
