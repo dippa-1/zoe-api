@@ -19,7 +19,8 @@ def read_root(command: str, background_tasks: BackgroundTasks, delay: Optional[s
     command.replace("%20", " ")
     cmd = f'renault-api {command}'
     if delay != None:
-        background_tasks.add_task(execute_delayed, cmd, int(delay))
+        delay = int(delay) * 60
+        background_tasks.add_task(execute_delayed, cmd, delay)
         return cmd, delay + 's'
     else:
         stream = os.popen(cmd)
