@@ -21,7 +21,7 @@ def read_root(command: str, background_tasks: BackgroundTasks, delay: Optional[s
     if delay != None:
         delay = int(delay) * 60
         background_tasks.add_task(execute_delayed, cmd, delay)
-        return cmd, delay + 's'
+        return cmd, str(delay) + 's'
     else:
         stream = os.popen(cmd)
         output = stream.read()
